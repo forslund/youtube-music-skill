@@ -13,6 +13,8 @@
 # limitations under the License.
 
 import re
+import subprocess
+
 from mycroft.skills.core import intent_handler
 from mycroft.util.parse import match_one, fuzzy_match
 from mycroft.api import DeviceApi
@@ -33,6 +35,7 @@ from mycroft.skills.common_play_skill import CommonPlaySkill, CPSMatchLevel
 from enum import Enum
 
 from ytmusicapi import YTMusic
+import pafy
 
 class YoutubePlaybackError(Exception):
     pass
@@ -504,12 +507,20 @@ class YoutubeMusicSkill(CommonPlaySkill):
         tracks = [t['videoId'] for t in album['tracks']]
         self.log.info('playing album!')
         self.log.info(tracks)
+        self.play_video_list(tracks)
 
     def play_artist(self, browse_id):
         artist = self.yt.get_artist(browse_id)
         tracks = [t['videoId'] for t in artist['songs']['results']]
-        from pprint import pprint
-        pprint(tracks[0])
+        self.play_video_list(tracks)
+
+    def play_video_list(self, v_list):
+        url = 'https://www.youtube.com/watch?v={}'
+        v = pafy.new(url.format(v_list[0]))
+        audio = v.getbestaudio()
+        cache = '/tmp/{}.mp3'.format(v_list[0])
+        subprocess.call(['ffmpeg', '-i', audio.url, cache])
+        self.audioservice.play(cache)
 
     def create_intents(self):
         """Setup the intents."""
