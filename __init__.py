@@ -418,7 +418,7 @@ class YoutubeMusicSkill(CommonPlaySkill):
         by_word = ' {} '.format(self.translate('by'))
         if len(album.split(by_word)) > 1:
             album, artist = album.split(by_word)
-            album_search = '*{}* artist:{}'.format(album, artist)
+            album_search = '{} {}'.format(artist, album)
             bonus += 0.1
         else:
             album_search = album
