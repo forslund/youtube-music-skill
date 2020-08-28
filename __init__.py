@@ -466,12 +466,18 @@ class YoutubeMusicSkill(CommonPlaySkill):
         by_word = ' {} '.format(self.translate('by'))
         if len(song.split(by_word)) > 1:
             song, artist = song.split(by_word)
-            song_search = '*{}* artist:{}'.format(song, artist)
+            song_search = '{} {}'.format(artist, song)
         else:
             song_search = song
 
         # Get song from youtube
         res = self.yt.search(song_search, 'songs')
+        if res:
+            self.log.info(res[0])
+            return (0.7, {'type': 'song',
+                          'videoId': res[0]['videoId']})
+        else:
+            return NOTHING_FOUND
 
         return None
 
@@ -487,6 +493,8 @@ class YoutubeMusicSkill(CommonPlaySkill):
                 self.play_artist(data['browseId'])
             elif data['type'] == 'album':
                 self.play_album(data['browseId'])
+            elif data['type'] == 'song':
+                self.play_video_list([data['videoId']])
             self.enable_playing_intents()
             if data.get('type') and data['type'] != 'continue':
                 self.last_played_type = data['type']
