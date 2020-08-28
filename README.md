@@ -1,5 +1,22 @@
-# <img src='https://rawcdn.githack.com/forslund/spotify-skill/05c19c0fba8a4af150c6eb8cf2e955d59ac83d15/Spotify_Icon.png' card_color='#40db60' width='50' height='50' style='vertical-align:bottom'/> Play Spotify
-Listen to music from Youtube Music
+# <img src='https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/music.svg' card_color='#F74E25' width='50' height='50' style='vertical-align:bottom'/> Play Youtube Music
+A skill for searching youtube through their music api
 
 ## About
-This is very much work in progress. Currently it can fetch the ids for songs in albums and from artists.
+This allows playback preferably through the vlc backend but reencoding and local caching through ffmpeg is planned.
+
+This skill is in very early stages of development.
+
+## Examples
+* "play something by beastie boys"
+* "play attack vector by covox"
+
+## Credits
+@forslund
+
+## Category
+**Music**
+
+## Tags
+#youtube
+#music
+
