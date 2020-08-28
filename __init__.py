@@ -581,21 +581,19 @@ class YoutubeMusicSkill(CommonPlaySkill):
 
     def pause(self, message=None):
         """ Handler for playback control pause. """
-        self.ducking = False
-        self.__pause()
+        pass
 
     def resume(self, message=None):
         """ Handler for playback control resume. """
-        # if authorized and playback was started by the skill
-        self.audioservice.resume()
+        pass
 
     def next_track(self, message):
         """ Handler for playback control next. """
-        self.audioservice.next_track()
+        pass
 
     def prev_track(self, message):
         """Handler for playback control prev."""
-        self.audioservice.prev_track()
+        pass
 
     def handle_stop(self, message):
         self.bus.emit(Message('mycroft.stop'))
