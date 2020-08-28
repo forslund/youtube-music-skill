@@ -431,6 +431,12 @@ class YoutubeMusicSkill(CommonPlaySkill):
         else:
             return NOTHING_FOUND
 
+    def get_best_user_playlist(self, playlist):
+        return NOTHING_FOUND
+
+    def get_best_public_playlist(self, playlist):
+        return NOTHING_FOUND
+
     def query_playlist(self, playlist):
         """Try to find a playlist.
 
