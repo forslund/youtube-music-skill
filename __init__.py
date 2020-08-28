@@ -530,11 +530,16 @@ class YoutubeMusicSkill(CommonPlaySkill):
 
     def play_video_list(self, v_list):
         url = 'https://www.youtube.com/watch?v={}'
-        v = pafy.new(url.format(v_list[0]))
-        audio = v.getbestaudio()
-        cache = '/tmp/{}.mp3'.format(v_list[0])
-        subprocess.call(['ffmpeg', '-i', audio.url, cache])
-        self.audioservice.play(cache)
+        if 'vlc' in self.audioservice.available_backends():
+            self.log.info('Using vlc backend!')
+            trx = [pafy.new(url.format(v)).getbestaudio().url for v in v_list]
+            self.audioservice.play(trx, utterance='vlc')
+        else:
+            v = pafy.new(url.format(v_list[0]))
+            audio = v.getbestaudio()
+            cache = '/tmp/{}.mp3'.format(v_list[0])
+            subprocess.call(['ffmpeg', '-i', audio.url, cache])
+            self.audioservice.play(cache)
 
     def create_intents(self):
         """Setup the intents."""
