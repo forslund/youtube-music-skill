@@ -1,2 +1,3 @@
 ytmusicapi
 pafy
+youtube-dl
