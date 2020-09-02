@@ -63,7 +63,7 @@ def best_result(results):
     """Return best result from a list of result tuples.
 
     Arguments:
-        results (list): list of spotify result tuples
+        results (list): list of result tuples
 
     Returns:
         Best match in list
@@ -88,18 +88,6 @@ def best_confidence(title, query):
     best_stripped = re.sub(r'(\(.+\)|-.+)$', '', best).strip()
     return max(fuzzy_match(best, query),
                fuzzy_match(best_stripped, query))
-
-
-def status_info(status):
-    """Return track, artist, album tuple from spotify status.
-
-    Arguments:
-        status (dict): Spotify status info
-
-    Returns:
-        tuple (track, artist, album)
-     """
-    return ('', '', '')
 
 
 class YoutubeMusicSkill(CommonPlaySkill):
@@ -492,7 +480,7 @@ class YoutubeMusicSkill(CommonPlaySkill):
         try:
             if data['type'] == 'continue':
                 self.acknowledge()
-                self.continue_current_playlist(dev)
+                self.continue_current_playlist()
             elif data['type'] == 'playlist':
                 self.play_playlist(data['playlistId'])
             elif data['type'] == 'artist':
